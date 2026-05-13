@@ -1,0 +1,12 @@
+schema_version = "1.0.0"
+id = "overte_avatar_blender_tool"
+version = "1.0.0"
+name = "Overte Avatar Blender Tool"
+tagline = "Operators for assisting with importing Avatars into Overte"
+maintainer = 'Lexi "Big Cheese"'
+type = "add-on"
+website = "https://github.com/LexiBigCheese/overte_avatar_blender_tool"
+tags = ["3D View","Rigging"]
+blender_version_min = "5.1.0" # TODO: Test on earlier blender versions
+license = ["SPDX:MIT"]
+copyright = ["2026 Lexi \"Big Cheese\""]
