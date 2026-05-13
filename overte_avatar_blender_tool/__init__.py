@@ -79,7 +79,7 @@ def recurse_test(bone):
 
 def collect_possible_renames(context):
     ab = context.active_bone
-    if eb.get(ab.name,None) is not None:
+    if rules.get(ab.name,None) is not None:
         return [ab.name] # Rename the bone to itself, and do all the other logic too!
     rule_bone = recurse_test(ab)
     eb = context.active_object.data.edit_bones
