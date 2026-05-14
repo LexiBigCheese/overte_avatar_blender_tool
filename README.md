@@ -10,6 +10,12 @@ This tool does not rely on Pattern Matching, meaning even if your bones names ar
 
 ## INSTALLATION
 
+> [!TIP]
+> If you want to develop this extension, simply clone this repository and add the folder containing this file as a Local Repository to the Extensions page in Preferences, then enable the Add-on in the Add-ons page.
+
+> [!NOTE]
+> Once I start making proper releases of this extension, the below steps will not be required, and instead a separate document will be made describing the process of creating a release.
+
 Firstly, you will need this extension in the zip format.
 
 Specifically, the format described by [the Blender documentation](https://docs.blender.org/manual/en/latest/advanced/extensions/getting_started.html#add-on-extension).
