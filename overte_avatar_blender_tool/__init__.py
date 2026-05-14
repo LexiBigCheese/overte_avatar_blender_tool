@@ -173,7 +173,7 @@ class AutoFlowBone(bpy.types.Operator):
         wm = context.window_manager
         return wm.invoke_props_dialog(self)
     def execute(self, context):
-        eb = context.object.data.edit_bones
+        eb = context.active_object.data.edit_bones
         base_name = "flow_"+self.chain_name+"_"
         pre_existing = eb.get(base_name + "1",None)
         if pre_existing is not None:
