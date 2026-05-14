@@ -1,6 +1,6 @@
 schema_version = "1.0.0"
 id = "overte_avatar_blender_tool"
-version = "1.0.0"
+version = "1.0.1"
 name = "Overte Avatar Blender Tool"
 tagline = "Operators for assisting with importing Avatars into Overte"
 maintainer = 'Lexi "Big Cheese"'
