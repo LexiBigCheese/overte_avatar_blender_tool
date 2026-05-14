@@ -58,7 +58,10 @@ For each of the above mentioned operators, I recommend right clicking on each an
 
 > [!TIP]
 > You can use the <kbd>N</kbd> key in the 3D View to open and close the side panel.
+>
 > In the "Item" tab of the side panel, you can find the Overte Avatar To-do list, which will give you any errors, and tell you what bones you need to press <kbd>5</kbd> or <kbd>6</kbd> on
+>
+> Note that this list may be incomplete or inaccurate
 
 We will now begin using the `Auto Rename` and `Auto Rename and Reparent` operators, which are the same operator, assume "the operator" is referring to the `Auto Rename` operator.
 
