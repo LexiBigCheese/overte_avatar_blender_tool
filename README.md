@@ -54,7 +54,11 @@ This extension adds three menu items to the Armature menu in the top left of the
  0. Auto Rename and Reparent
  0. Auto Flow Bone
 
-For each of the above mentioned operators, I recommend right clicking on each and using `Assign Shortcut...` to assign these operators to `5`, `6`, and `7` respectively. However, you may choose to assign these operators to whatever keys you desire.
+For each of the above mentioned operators, I recommend right clicking on each and using `Assign Shortcut...` to assign these operators to <kbd>5</kbd>, <kbd>6</kbd>, and <kbd>7</kbd> respectively. However, you may choose to assign these operators to whatever keys you desire.
+
+> [!TIP]
+> You can use the <kbd>N</kbd> key in the 3D View to open and close the side panel.
+> In the "Item" tab of the side panel, you can find the Overte Avatar To-do list, which will give you any errors, and tell you what bones you need to press <kbd>5</kbd> or <kbd>6</kbd> on
 
 We will now begin using the `Auto Rename` and `Auto Rename and Reparent` operators, which are the same operator, assume "the operator" is referring to the `Auto Rename` operator.
 
