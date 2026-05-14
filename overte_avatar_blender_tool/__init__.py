@@ -124,8 +124,6 @@ def enum_callback(auto_rename,context):
     print(possible_renames)
     return [(n,n,"TODO: Add Description") for n in possible_renames]
 
-
-
 class AutoRename(bpy.types.Operator):
     """Semi-Auto renaming of a Bone to match Overte Avatar Standards"""
     bl_idname = "armature.overte_auto_rename"
