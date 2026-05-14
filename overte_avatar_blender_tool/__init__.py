@@ -228,6 +228,7 @@ class OverteAvatarTodoList(bpy.types.Panel):
                     case (False,False):
                         if bone.parent.name not in v.parent:
                             errors.append("Bone \"" + k + "\" is parented to \"" + bone.parent.name + "\" when it should be parented to any of " + str(v.parent))
+        #TODO: for bone in eb: if is_start_of_flow_bone_chain(bone.name): if_flow_bone_chain_malformed_then_append_errors_about_it(eb,bone,errors)
         #Now we start laying out everything
         needs_sep = False
         def layout_section(needs_sep,l,name,arr):
