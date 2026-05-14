@@ -232,13 +232,13 @@ class OverteAvatarTodoList(bpy.types.Panel):
         needs_sep = False
         def layout_section(needs_sep,l,name,arr):
             if len(arr) == 0:
-                return
+                return needs_sep
             if needs_sep:
                 l.separator()
             l.label(text = name + ":")
             for item in arr:
                 l.label(text = item)
-            needs_sep = True
+            return True
         needs_sep = layout_section(needs_sep,l,"Errors",errors)
         needs_sep = layout_section(needs_sep,l,"Required Next",required_next)
         needs_sep = layout_section(needs_sep,l,"Required Otherwise",required_otherwise)
