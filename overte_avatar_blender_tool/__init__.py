@@ -120,6 +120,8 @@ def rename_bone(bone,context,newname: str,reparent=False,run_callback=True):
         bpy.ops.armature.calculate_roll(type='GLOBAL_POS_Y')
     elif newroll == "ZNeg":
         bpy.ops.armature.calculate_roll(type='GLOBAL_NEG_Z')
+    elif newroll == "ZPos":
+        bpy.ops.armature.calculate_roll(type='GLOBAL_POS_Z')
     bone.color.palette = "THEME03"
     # TODO: either add the other roll recalculations, or extend the callback system to be able to chain callbacks
     # ALSO: this way of roll recalculation only works if bone is context.active_bone
