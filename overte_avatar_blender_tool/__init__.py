@@ -55,6 +55,7 @@ def rule_chain(optional: bool,roll:Literal["YNeg", "ZNeg", "ZPos"] | None,first_
         the_matcher = Matcher(the_chain[i])
         the_matcher.optional = optional
         the_matcher.roll = roll
+        the_matcher.dead_end_return = first_parent
         rules[the_chain[i + 1]] = the_matcher
 
 def eye_callback(bone,context,newname):
