@@ -187,6 +187,65 @@ class AutoFlowBone(bpy.types.Operator):
             current_bone = children[0] if len(children) == 1 else None
         return {"FINISHED"}
 
+class OverteAvatarTodoList(bpy.types.Panel):
+    bl_idname = "ARMATURE_PT_OverteAvatarTodoList"
+    bl_label = "Overte Avatar To-Do List"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "Item"
+    @classmethod
+    def poll(cls,context):
+        return context.active_object is not None and context.active_object.type == "ARMATURE" and context.active_object.data.edit_bones is not None
+    def draw(self,context):
+        l = self.layout
+        eb = context.active_object.data.edit_bones
+        errors = []
+        if len(bpy.data.armatures) < 1: # TODO: only measure armatures in current scene
+            errors.append("Missing armature")
+        elif len(bpy.data.armatures) > 1:
+            errors.append("Too manu armatures")
+        required_next = []
+        optional_next = []
+        required_otherwise = []
+        optional_otherwise = []
+        for k,v in rules.items():
+            bone = eb.get(k,None)
+            has_parent_existing = any(eb.get(parent,None) is not None for parent in v.parent)
+            is_next = len(v.parent) == 0 or has_parent_existing
+            arr_next = optional_next if v.optional else required_next
+            arr_otherwise = optional_otherwise if v.optional else required_otherwise
+            arr_append = arr_next if is_next else arr_otherwise
+            if bone is None:
+                arr_append.append(k)
+            else:
+                match (len(v.parent) == 0,bone.parent is None):
+                    case (True,True):
+                        pass
+                    case (True,False):
+                        errors.append("Bone \"" + k + "\" is parented when it should not be")
+                    case (False,True):
+                        errors.append("Bone \"" + k + "\" is a root bone when it should be parented to any of " + str(v.parent))
+                    case (False,False):
+                        if bone.parent.name not in v.parent:
+                            errors.append("Bone \"" + k + "\" is parented to \"" + bone.parent.name + "\" when it should be parented to any of " + str(v.parent))
+        #Now we start laying out everything
+        needs_sep = False
+        def layout_section(needs_sep,l,name,arr):
+            if len(arr) == 0:
+                return
+            if needs_sep:
+                l.separator()
+            l.label(text = name + ":")
+            for item in arr:
+                l.label(text = item)
+            needs_sep = True
+        needs_sep = layout_section(needs_sep,l,"Errors",errors)
+        needs_sep = layout_section(needs_sep,l,"Required Next",required_next)
+        needs_sep = layout_section(needs_sep,l,"Required Otherwise",required_otherwise)
+        needs_sep = layout_section(needs_sep,l,"Optional Next",optional_next)
+        needs_sep = layout_section(needs_sep,l,"Optional Otherwise",optional_otherwise)
+        # TODO: button that recalculates rolls just in case
+
 def menu_func(self,context):
     if self.layout is None:
         return
@@ -198,7 +257,7 @@ def menu_func(self,context):
 
 # TODO: automatically add keymapping. for now, the process simply needs to be documented
 
-(c_register,c_unregister) = bpy.utils.register_classes_factory((AutoRename,AutoFlowBone))
+(c_register,c_unregister) = bpy.utils.register_classes_factory((AutoRename,AutoFlowBone,OverteAvatarTodoList))
 
 def register():
     c_register()
