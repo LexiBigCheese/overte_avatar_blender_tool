@@ -93,7 +93,7 @@ def collect_possible_renames(context):
       key for key,value in rules.items() if (value.parent == () if rule_bone is None else (rule_bone.name in value.parent and eb.get(key,None) is None))
     ]
 
-def rename_bone(bone,context,newname: str,reparent=False):
+def rename_bone(bone,context,newname: str,reparent=False,run_callback=True):
     bone_name = bone.name
     for mesh in context.active_object.children:
         for vg in context.active_object.vertex_groups:
@@ -109,7 +109,7 @@ def rename_bone(bone,context,newname: str,reparent=False):
             if new_parent != bone and new_parent != bone.parent:
                 bone.use_connect = False
                 bone.parent = new_parent
-    if associated_rule is not None and associated_rule.callback is not None:
+    if associated_rule is not None and associated_rule.callback is not None and run_callback:
         associated_rule.callback(bone,context,newname)
     newroll = None
     if associated_rule is not None:
@@ -138,6 +138,7 @@ class AutoRename(bpy.types.Operator):
     bl_property = "rename_to"
     rename_to: bpy.props.EnumProperty(items=enum_callback,name="Rename To")
     do_reparent: bpy.props.BoolProperty(name="Reparent Bone")
+    run_callback: bpy.props.BoolProperty(name="Run Callback",default=True)
     @classmethod
     def poll(cls, context):
         return context.active_bone is not None and context.active_object is not None and context.active_object.type == "ARMATURE" and context.active_object.data.edit_bones is not None
@@ -158,7 +159,7 @@ class AutoRename(bpy.types.Operator):
             return {'INTERFACE'}
 
     def execute(self, context):
-        rename_bone(context.active_bone,context,self.rename_to,self.do_reparent)
+        rename_bone(context.active_bone,context,self.rename_to,self.do_reparent,self.run_callback)
         if len(context.active_bone.children) == 1:
             context.object.data.edit_bones.active = context.active_bone.children[0]
         return {'FINISHED'}
