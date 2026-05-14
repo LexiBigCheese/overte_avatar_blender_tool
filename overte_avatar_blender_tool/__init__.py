@@ -211,6 +211,10 @@ class OverteAvatarTodoList(bpy.types.Panel):
             errors.append("Missing armature")
         elif len(bpy.data.armatures) > 1:
             errors.append("Too manu armatures")
+        for mesh in context.active_object.children:
+            for modifier in mesh.modifiers:
+                if modifier.type != "ARMATURE":
+                    errors.append("Mesh \""+mesh.name+"\" has unsupported modifier named \""+modifier.name+"\"")
         required_next = []
         optional_next = []
         required_otherwise = []
