@@ -10,11 +10,13 @@ class Matcher:
     optional: bool
     roll: Literal["YNeg", "ZNeg", "ZPos"] | None
     callback: Callable[[bpy.types.Bone,bpy.types.Context,str], None]
+    dead_end_return: str | None
     def __init__(self,*parents):
         self.optional = False
         self.parent = parents
         self.roll = None
         self.callback = None
+        self.dead_end_return = None
     def opt(self):
         self.optional = True
         return self
@@ -32,6 +34,9 @@ class Matcher:
         return self
     def cback(self,newcallback: Callable[[bpy.types.Bone,bpy.types.Context,str], None]):
         self.callback = newcallback
+        return self
+    def returning_to(self,bonename: str):
+        self.dead_end_return = bonename
         return self
 
 rules = {
