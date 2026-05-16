@@ -140,6 +140,52 @@ If you want to have even more fun, record yourself doing a speedrun of porting y
 
 That's all from me for now, good luck!
 
+## VERSION 1.2 ADDITIONS
+
+A few new operators and small improvements since the previous write up. They are listed roughly in the order you will run into them while porting an avatar.
+
+### Hotkeys
+
+The operators `Auto Rename`, `Auto Rename and Reparent`, and `Auto Flow Bone` are now bound to <kbd>5</kbd>, <kbd>6</kbd>, and <kbd>7</kbd> on enable, so you no longer need to right click each one and use `Assign Shortcut...` by hand. You may still rebind them to whatever you like.
+
+> [!NOTE]
+> If you previously bound these operators to your own keys, those bindings will still be there alongside the new ones. Go to `Edit > Preferences > Keymap` and remove the duplicates if you want a clean setup.
+
+### Per Bone Descriptions
+
+When `Auto Rename` (or its reparent variant) pops up the search menu, each entry now shows a short description of what that bone is, such as "Chest (upper spine)" or "Left thumb, base joint". This should make it easier to pick the right name when more than one is available, especially around the fingers.
+
+### Smarter Active Bone Advancement
+
+After Invoking `Auto Rename`, the active bone now tries to advance to the bone you are most likely to rename next, rather than always stopping at the first child. If there is exactly one child whose name is not already a known rule (so a child you have not renamed yet), the active bone hops to it. When you reach a "dead end" such as `LeftHand` after all of its fingers have been renamed, the active bone hops back to the start of that chain (such as `Spine2`), so you can carry straight on with the other side without having to navigate back manually.
+
+### Recalculate All Rolls
+
+A new operator, available as a button at the top of the `Overte Avatar To-Do List` panel and also in the Armature menu in Edit Mode. Invoking it walks the rules and recalculates the roll on every bone whose name matches one of the standard avatar bones (Hips, Spine, LeftArm, and so on).
+
+This is mostly useful as a safety net, for example after importing an avatar that came in with strange rolls, or if you just want to be sure nothing was missed while renaming.
+
+### Split Shape Key by Axis
+
+If your avatar came with a single "Eye Blink" shape key, this operator splits it into `Eye BlinkLeft` and `Eye BlinkRight` along the X axis, so you no longer need to follow the Reddit method linked further up in this README. It also works on any other symmetrical shape key you would like to split, not just eye blinks.
+
+To use it:
+ 0. Select the mesh that owns the shape key, in Object Mode.
+ 0. In the Properties editor, switch to the Object Data Properties tab (the green triangle icon).
+ 0. Open the Shape Keys section, click the small dropdown menu next to the shape key list, and select `Split by Axis (Overte)`.
+ 0. The source shape key name defaults to "Eye Blink". Change it if your key is named something else, and pick names for the left and right halves if you do not want the default `<source>Left` and `<source>Right` pair.
+
+> [!TIP]
+> The operator assumes Blender's standard convention that +X is the character's left side. If your avatar ends up blinking on the wrong sides, the easiest fix is to swap the left and right names in the dialog and Invoke again.
+
+### Treat Toes As Required
+
+A new preference under `Edit > Preferences > Add-ons > Overte Avatar Blender Tool > Preferences`. Off by default. When on, `LeftToeBase`, `LeftToe_End`, `RightToeBase`, and `RightToe_End` will show up as Required entries in the To-Do list instead of Optional, which is handy if you are working on a stylised avatar where the toes are always part of the rig.
+
+### Flow Chain Validation
+
+The To-Do List panel now flags `flow_*_N` chains that have gone wrong. The most common cause is reparenting one of the middle links by accident, which the panel will now tell you about so you can fix it before exporting.
+
 ## CONTRIBUTION POLICY
 
 This repository does not accept AI generated documentation, code, or other content in pull requests.
